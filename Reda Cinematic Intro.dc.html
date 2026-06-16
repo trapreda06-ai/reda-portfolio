@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; background: #050505; }
+    body { -webkit-font-smoothing: antialiased; }
+    ::selection { background: #c9a84c; color: #050505; }
+    @keyframes introFade { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes glowPulse {
+      0%, 100% { filter: drop-shadow(0 0 6px rgba(201,168,76,0.55)) drop-shadow(0 0 18px rgba(201,168,76,0.25)); }
+      50% { filter: drop-shadow(0 0 14px rgba(201,168,76,0.9)) drop-shadow(0 0 36px rgba(201,168,76,0.45)); }
+    }
+    @keyframes scrollLine { 0% { transform: scaleY(0); transform-origin: top; } 60% { transform: scaleY(1); transform-origin: top; } 61% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+  </style>
+</helmet>
+
+<div style="background: #050505; color: #f2f2f0; font-family: 'Space Mono', monospace; overflow-x: hidden">
+
+  <!-- ============ SECTION 1 — VIDEO HERO ============ -->
+  <div data-screen-label="Video Hero" style="position: relative; height: 100vh; min-height: 600px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-end">
+    <video src="assets/hero-loop.mp4" ref="{{ bgVideoRef }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></video>
+    <!-- subtle dark overlay -->
+    <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.32); pointer-events: none"></div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(rgba(5,5,5,0.25) 0%, rgba(5,5,5,0) 30%, rgba(5,5,5,0) 60%, rgba(5,5,5,0.8) 100%); pointer-events: none"></div>
+
+    <!-- bottom-center: glowing camera icon, REDA, scroll cue (timed entrances) -->
+    <div style="position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 18px; padding-bottom: 40px">
+      <svg width="64" height="44" viewBox="0 0 64 44" fill="none" style="animation: introFade 1.4s 2s ease-out backwards, glowPulse 3s 3.4s ease-in-out infinite">
+        <rect x="2" y="12" width="40" height="26" rx="4" stroke="#c9a84c" stroke-width="2"></rect>
+        <circle cx="14" cy="7" r="5.5" stroke="#c9a84c" stroke-width="2"></circle>
+        <circle cx="30" cy="7" r="5.5" stroke="#c9a84c" stroke-width="2"></circle>
+        <path d="M42 20 L58 14 V36 L42 30 Z" stroke="#c9a84c" stroke-width="2" stroke-linejoin="round"></path>
+        <circle cx="13" cy="25" r="3" fill="#c9a84c"></circle>
+      </svg>
+      <div style="font-size: 13px; letter-spacing: 10px; color: #c9a84c; text-indent: 10px; animation: introFade 1.2s 2.5s ease-out backwards">REDA</div>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; animation: introFade 1.2s 3.1s ease-out backwards; cursor: pointer" onClick="{{ goFinale }}">
+        <div style="font-size: 10px; letter-spacing: 3px; color: rgba(242,242,240,0.6)">SCROLL</div>
+        <div style="width: 1px; height: 38px; background: linear-gradient(#c9a84c, rgba(201,168,76,0)); animation: scrollLine 2.2s ease-in-out infinite"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 2 — PHOTO FINALE ============ -->
+  <div id="finale" data-screen-label="Photo Finale" style="position: relative; height: 100vh; min-height: 640px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center">
+    <img src="assets/finale-photo.jpg" alt="Mohamed Reda filming on set" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 52% 28%; filter: grayscale(0.55) brightness(0.45) contrast(1.08)">
+    <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(5,5,5,0.1) 0%, rgba(5,5,5,0.72) 100%); pointer-events: none"></div>
+
+    <!-- gold line sweeping the full width -->
+    <div data-fx="line" style="position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, rgba(201,168,76,0) 0%, #c9a84c 18%, #c9a84c 82%, rgba(201,168,76,0) 100%); transform: scaleX(0); opacity: 0.7"></div>
+
+    <!-- centered text stack -->
+    <div style="position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; gap: clamp(20px, 2.6vw, 30px); padding: 0 24px; background: rgba(5,5,5,0.0)">
+      <div data-fx="up" data-delay="500" style="font-size: 13px; letter-spacing: 7px; color: #c9a84c">MOHAMED REDA EL GUERMADI</div>
+
+      <div style="font-family: 'Bebas Neue', sans-serif; font-size: clamp(72px, 11vw, 170px); line-height: 0.9; letter-spacing: 0.02em; color: #f2f2f0">
+        <div data-fx="up" data-delay="750">EVERY FRAME</div>
+        <div data-fx="up" data-delay="950" style="color: #c9a84c">HAS A PURPOSE.</div>
+      </div>
+
+      <div data-fx="up" data-delay="1200" style="display: flex; align-items: center; gap: 18px; font-size: clamp(12px, 1.1vw, 15px); letter-spacing: 4px; color: rgba(242,242,240,0.85)">
+        <div style="width: 36px; height: 1px; background: #c9a84c"></div>
+        <div>CREATIVE FILMMAKER · MARRAKECH</div>
+        <div style="width: 36px; height: 1px; background: #c9a84c"></div>
+      </div>
+
+      <!-- detailed cinema camera -->
+      <svg data-fx="up" data-delay="1500" width="120" height="84" viewBox="0 0 120 84" fill="none" style="margin-top: 6px; filter: drop-shadow(0 0 10px rgba(201,168,76,0.35))">
+        <!-- film reels -->
+        <circle cx="34" cy="16" r="12" stroke="#c9a84c" stroke-width="2.5"></circle>
+        <circle cx="34" cy="16" r="4" stroke="#c9a84c" stroke-width="1.5"></circle>
+        <circle cx="62" cy="16" r="12" stroke="#c9a84c" stroke-width="2.5"></circle>
+        <circle cx="62" cy="16" r="4" stroke="#c9a84c" stroke-width="1.5"></circle>
+        <!-- body -->
+        <rect x="14" y="30" width="66" height="42" rx="6" stroke="#c9a84c" stroke-width="2.5"></rect>
+        <!-- lens -->
+        <path d="M80 44 L106 34 V68 L80 58 Z" stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"></path>
+        <circle cx="106" cy="51" r="6" stroke="#c9a84c" stroke-width="2"></circle>
+        <!-- record button + details -->
+        <circle cx="30" cy="51" r="6" fill="#c9a84c"></circle>
+        <rect x="44" y="46" width="26" height="2.5" rx="1.25" fill="#c9a84c"></rect>
+        <rect x="44" y="54" width="18" height="2.5" rx="1.25" fill="#c9a84c"></rect>
+      </svg>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  bgVideoRef = (el) => {
+    if (!el || el === this._bgVideo) return;
+    this._bgVideo = el;
+    el.muted = true;
+    el.defaultMuted = true;
+    const tryPlay = () => el.play().catch(() => {});
+    tryPlay();
+    el.addEventListener('canplay', tryPlay, { once: true });
+  };
+
+  componentDidMount() {
+    // prepare finale elements
+    const ups = Array.from(document.querySelectorAll('[data-fx="up"]'));
+    ups.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+    });
+    const line = document.querySelector('[data-fx="line"]');
+    this._fired = false;
+
+    const fire = () => {
+      if (this._fired) return;
+      this._fired = true;
+      if (line) {
+        line.style.transition = 'transform 1.4s cubic-bezier(0.22,1,0.36,1)';
+        line.style.transform = 'scaleX(1)';
+      }
+      ups.forEach(el => {
+        const delay = parseInt(el.getAttribute('data-delay') || '0', 10);
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.9s ease, transform 0.9s cubic-bezier(0.22,1,0.36,1)';
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+          // bulletproof: force final state if transitions are throttled
+          setTimeout(() => {
+            el.style.transition = 'none';
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+          }, 1100);
+        }, delay);
+      });
+      teardown();
+    };
+
+    const check = () => {
+      const sec = document.getElementById('finale');
+      if (!sec) return;
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const r = sec.getBoundingClientRect();
+      if (r.top < vh * 0.55) fire();
+    };
+    const teardown = () => {
+      window.removeEventListener('scroll', check);
+      window.removeEventListener('resize', check);
+      clearInterval(this._interval);
+    };
+    this._teardown = teardown;
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check);
+    this._interval = setInterval(check, 700);
+    requestAnimationFrame(check);
+  }
+
+  componentWillUnmount() {
+    if (this._teardown) this._teardown();
+  }
+
+  renderVals() {
+    return {
+      bgVideoRef: this.bgVideoRef,
+      goFinale: () => {
+        const el = document.getElementById('finale');
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
