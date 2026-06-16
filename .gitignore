@@ -4,3 +4,4 @@ Thumbs.db
 
 # Uploads folder (working/draft files, not needed for deployment)
 uploads/
+.vercel
